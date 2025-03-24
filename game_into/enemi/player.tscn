@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://dn5pk4wecpl6e"]
+
+[ext_resource type="Texture2D" uid="uid://dv24l3fodk4q7" path="res://assets/Vector/vector_characters.svg" id="1_mn8ee"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yutc"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(0, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hy8f0"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(80, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4kka"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(160, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh4bj"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(240, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75enn"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(320, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q52vd"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(80, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82mma"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(160, 378, 80, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80cr2"]
+atlas = ExtResource("1_mn8ee")
+region = Rect2(720, 378, 80, 126)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydib2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yutc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hy8f0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4kka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dh4bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75enn")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q52vd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82mma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80cr2")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gnrxb"]
+radius = 35.0
+height = 92.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ydib2")
+animation = &"jump"
+frame_progress = 0.640247
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gnrxb")

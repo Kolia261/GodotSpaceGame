@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://k3vgjidlamjd"]
+
+[ext_resource type="FontFile" uid="uid://brsly5ckd1uax" path="res://ui/fonts/default_font.tres" id="1"]
+[ext_resource type="PackedScene" path="res://ui/menus/sounds/menu_sound_player.tscn" id="2"]
+[ext_resource type="FontFile" uid="uid://5iubshhhkcq5" path="res://ui/fonts/default_font_bold.tres" id="5"]
+[ext_resource type="Script" path="res://ui/menus/quit_menu.gd" id="6"]
+
+[node name="QuitMenu" type="MarginContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -60.0
+offset_right = 155.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("6")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(270, 80)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
+text = "Really quit?"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/YesButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_fonts/font = ExtResource("5")
+text = "Yes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NoButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/NoButton"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_fonts/font = ExtResource("5")
+text = "No"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuSoundPlayer" parent="." instance=ExtResource("2")]
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/YesButton" to="." method="_on_YesButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NoButton" to="." method="_on_NoButton_pressed"]

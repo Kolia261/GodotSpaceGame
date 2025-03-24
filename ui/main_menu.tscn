@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsww2j4bmv25c"]
+
+[ext_resource type="PackedScene" uid="uid://bjne51x01i88h" path="res://ui/main_screen/main_screen.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://ui/menus/sounds/menu_sound_player.tscn" id="2"]
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="8"]
+[ext_resource type="PackedScene" uid="uid://bv00wk2go2l6s" path="res://ui/screen_fader.tscn" id="9"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainScreen" parent="Background" instance=ExtResource("1")]
+layout_mode = 1
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="ScreenFader" parent="FadeLayer" instance=ExtResource("9")]
+duration_fade_out = 1.0
+
+[node name="MenuSoundPlayer" parent="." instance=ExtResource("2")]
+
+[node name="Buttons" type="Node" parent="."]
+
+[node name="Start" type="Button" parent="Buttons"]
+light_mask = 512
+visibility_layer = 512
+offset_left = 439.0
+offset_top = 84.0
+offset_right = 819.0
+offset_bottom = 206.0
+text = "Start"
+
+[node name="Help" type="Button" parent="Buttons"]
+offset_left = 439.0
+offset_top = 223.0
+offset_right = 819.0
+offset_bottom = 345.0
+text = "Help"
+
+[node name="Exit" type="Button" parent="Buttons"]
+offset_left = 439.0
+offset_top = 363.0
+offset_right = 819.0
+offset_bottom = 485.0
+text = "Exit"
+
+[connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Buttons/Exit" to="Background/MainScreen" method="_on_exit_pressed"]

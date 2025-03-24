@@ -1,0 +1,170 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqr8h03j52wnv"]
+
+[ext_resource type="Texture2D" uid="uid://cbujfepgfuvom" path="res://ui/main_screen/envelope-background.png" id="1_6ba5a"]
+[ext_resource type="Script" path="res://ui/menus/node_2d.gd" id="1_bvjy7"]
+[ext_resource type="Texture2D" uid="uid://bnsth1ku11n0g" path="res://vfx/star.png" id="3_yuyt3"]
+[ext_resource type="Texture2D" uid="uid://4cefpybwxeud" path="res://world/docking_point/asteroid-round.svg" id="4_iw65t"]
+
+[sub_resource type="Curve" id="Curve_tb8b4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498099, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wx1ad"]
+curve = SubResource("Curve_tb8b4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b8rkn"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(500, 250, 1)
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_wx1ad")
+
+[sub_resource type="Animation" id="4"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxh32"]
+_data = {
+"idle": SubResource("4")
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ihgpq"]
+_data = {
+"idle": SubResource("5")
+}
+
+[sub_resource type="Animation" id="6"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvt5v"]
+_data = {
+"idle": SubResource("6")
+}
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bvjy7")
+
+[node name="EnvelopeBackground" type="TextureRect" parent="."]
+layout_mode = 1
+texture = ExtResource("1_6ba5a")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 27.0
+offset_right = 1012.0
+offset_bottom = 219.0
+text = "Start"
+
+[node name="Stars" type="GPUParticles2D" parent="."]
+position = Vector2(603, 398)
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_b8rkn")
+texture = ExtResource("3_yuyt3")
+lifetime = 5.0
+visibility_rect = Rect2(-100, -100, 243.09, 200)
+local_coords = true
+
+[node name="Asteroids" type="Node2D" parent="."]
+position = Vector2(-15, -15)
+
+[node name="Asteroid" type="Sprite2D" parent="Asteroids"]
+position = Vector2(81, 90)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_iw65t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Asteroids/Asteroid"]
+libraries = {
+"": SubResource("AnimationLibrary_gxh32")
+}
+autoplay = "idle"
+
+[node name="Asteroid2" type="Sprite2D" parent="Asteroids"]
+position = Vector2(1242, 295)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_iw65t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Asteroids/Asteroid2"]
+libraries = {
+"": SubResource("AnimationLibrary_ihgpq")
+}
+autoplay = "idle"
+
+[node name="Asteroid3" type="Sprite2D" parent="Asteroids"]
+position = Vector2(1194, 112)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_iw65t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Asteroids/Asteroid3"]
+libraries = {
+"": SubResource("AnimationLibrary_tvt5v")
+}
+autoplay = "idle"
+
+[node name="Help" type="Button" parent="."]
+offset_left = 198.0
+offset_top = 241.0
+offset_right = 1014.0
+offset_bottom = 433.0
+text = "Help"
+
+[node name="Settings" type="Button" parent="."]
+offset_left = 198.0
+offset_top = 456.0
+offset_right = 1014.0
+offset_bottom = 648.0
+text = "Settings"
+
+[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Help" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_button_pressed"]
